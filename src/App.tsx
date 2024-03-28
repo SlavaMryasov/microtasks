@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Input } from "./components/Input";
+import { Button } from "./components/Button";
 
 function App() {
+  const [messages, setMessage] = useState([
+        {message: 'message1'},
+        {message: 'message2'},
+        {message: 'message3'},
+        {message: 'message4'},
+        {message: 'message5'}
+      ]
+  )
+
+  let [inputValue, setValue] = useState('')
+
+      const sendMessage = () => {
+        let message = {message: inputValue}
+        setMessage([message, ...messages])
+        setValue('')
+      }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <div>
+          <Input setValue={setValue} title={inputValue}/>
+          <Button name={'+'} sendMessage={sendMessage}/>
+        </div>
+        {messages.map((el, index) => {
+          return (
+              <div key={index}>{el.message}</div>
+          )
+        })}
+      </div>
   );
 }
-
 export default App;
