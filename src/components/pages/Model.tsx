@@ -1,26 +1,53 @@
-import { useParams } from "react-router-dom"
-import { AdidasItem } from "../dataState/dataState"
-import { Error404 } from "./Error404"
+import {adidasArr, AdidasItem} from "./Adidas";
+import {useLocation, useParams} from "react-router-dom";
+import {pumaArr, PumaItem} from "./Puma";
+import { Link } from "react-router-dom";
+import styles from './../Site.module.css'
 
-type PageType = {
-    adidas: AdidasItem[]
+
+type CrossModels= {
+    [key: string]: (AdidasItem[] | PumaItem[]);
 }
 
+const crossModels: CrossModels={
+    adidas:adidasArr,
+    puma: pumaArr
+}
 
-export const Model = (props: PageType) => {
-    // debugger
-    const params = useParams()
-    console.log(params)
-    const model = props.adidas.find(el => el.model === params.model)
-    return (
-        <div>
-            {model ? <div>
-                <h2>{model.model}</h2>
-                <h3>{model.collection}</h3>
-                <h3>{model.price}</h3>
-                <img src={model.picture} alt="" />
-            </div>
-            : <div>dddd</div>}
+export const Model = () => {
+
+    const { model, id } = useParams();
+    const locale = useLocation()
+    console.log(locale.pathname)
+
+    const currentModel = model
+        ? crossModels[model].find((el) => el.id === Number(id))
+        : null;
+
+      return (
+        <div style={{textAlign:'center'}}>
+
+
+{locale.pathname==='/adidas/3'&& // на третий кросс сделать
+    <div style={{backgroundColor:'black',padding:'10px',marginTop:'20px'}}>
+        <div>Можем вам еще посоветовать перейти в раздел ABIBAS</div>
+        <Link to="/abibas" className={styles.LinkLikeButton}>перейти в раздел ABIBAS</Link>
+    </div>
+}
+
+            {currentModel
+                ?<>
+                    <h2>{currentModel.model}</h2>
+                    <h4>{currentModel.collection}</h4>
+                    <h3>{currentModel.price}</h3>
+                    <img
+                        src={currentModel.picture}
+                        alt={currentModel.model}
+                        style={{width: '600px', height: 'auto', marginRight: '10px'}}
+                    />
+                </>
+                :   <h2>Модель отсутствует</h2>
+            }
         </div>
-    )
-} 
+);
+};
