@@ -1,62 +1,53 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from "./components/Site.module.css";
-import {Adidas} from "./components/pages/Adidas";
-import {Puma} from "./components/pages/Puma";
-import {Abibas} from "./components/pages/Abibas";
-import {Navigate, NavLink, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
-import {Error404} from "./components/pages/Error404";
-import styled from 'styled-components';
-import {S} from './components/pages/_styles'
-import {Model} from "./components/pages/Model";
-import {Prices} from "./components/pages/Prices";
-import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { ModelCrossContext } from './context/ModelProvider';
-import { ProtectedPage } from './components/pages/ProtectedPage';
-import { useWindowSize } from './helpers/useWindowsSize';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { PageOne } from './components/pages/PageOne';
+import { PageTwo } from './components/pages/PageTwo';
+import { PageThree } from './components/pages/PageThree';
+import { Error404 } from './components/pages/Error404';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components'
 
-const PATH = {
-    PAGE1: '/adidas',
-    PAGE2: '/puma',
-    PAGE3: '/abibas',
-    PRICES: '/prices',
-} as const
+type RoutesType = 'page1' | 'page2' | 'page3'
 
 function App() {
-    const navigate = useNavigate()
-    const onClickBackHandler = () => {
-        navigate(-1)
-        console.log(navigate)
+
+    const PATH = {
+        PAGE1: '/page1',
+        PAGE2: '/page2',
+        PAGE3: '/page3',
     }
 
-    const{model}=useContext(ModelCrossContext)
- 
-
-        const size = useWindowSize()
-        console.log(size)
+    const stylesCallback = (isActive: boolean) => {
+        return isActive ? styles.active : styles.pending
+    }
 
     return (
         <div>
             <div className={styles.header}><h1>HEADER</h1></div>
             <div className={styles.body}>
-                {size>1000
-                ? <div className={styles.nav}>
-                <S.NavWrapper><NavLink to={PATH.PAGE1}>Adidas</NavLink></S.NavWrapper>
-                <S.NavWrapper><NavLink to={PATH.PAGE2}>Puma</NavLink></S.NavWrapper>
-                {!model &&<S.NavWrapper><NavLink to={PATH.PAGE3}>Abibas</NavLink></S.NavWrapper>}
-                <S.NavWrapper><NavLink to={PATH.PRICES}>Цены для оптовиков</NavLink></S.NavWrapper>
-                <S.NavWrapper><NavLink to={'protected'}>protected page</NavLink></S.NavWrapper>
-            </div>
-            : <div>burger</div>
-                }
-                
-                <div className={styles.content}>
-                <div className={styles.HorizontalNavigation}>
-                <Link to="/adidas" className={styles.LinkLikeButton}>ГЛАВНАЯ СТРАНИЦА (ADIDAS)</Link>
-                <button onClick={onClickBackHandler} className={styles.ButtonLikeLink}>НАЗАД</button>
+                <div className={styles.nav}>
+                    <StylesWrapper>
+                        <li>
+                            <NavLink to={PATH.PAGE1}>adidas</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={PATH.PAGE2}>puma</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={PATH.PAGE3}>abibas</NavLink>
+                        </li>
+                    </StylesWrapper>
                 </div>
-                <ProtectedPage/>
-                    <Outlet/>
+                <div className={styles.content}>
+                    <Routes>
+                        <Route path={'/'} element={<Navigate to={PATH.PAGE1} />} />
+                        <Route path={PATH.PAGE1} element={<PageOne />} />
+                        <Route path={PATH.PAGE2} element={<PageTwo />} />
+                        <Route path={PATH.PAGE3} element={<PageThree />} />
+                        <Route path={'/error404'} element={<Error404 />} />
+                        <Route path={'/*'} element={<Navigate to={'error404'} />} />
+                    </Routes>
                 </div>
             </div>
             <div className={styles.footer}>abibas 2023</div>
@@ -64,7 +55,26 @@ function App() {
     );
 }
 
+const StylesWrapper = styled.ul`
+    & > li {
+        width: 150px;
+        border: 1px solid rgb(9, 255, 0);
+        list-style: none;
+        background-color: rgb(183, 255, 193);
+        border-radius: 5px;
+        margin: 1px;
+        text-align: center;
+    }
+    & > li:hover {
+        background-color: rgb(143, 255, 139);
+    }
+
+    & > li>a{
+        text-decoration: none;
+    }
+    & > li>a.active {
+        color: rgb(112, 0, 116);
+    }
+`
+
 export default App;
-
-
-
