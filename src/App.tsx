@@ -11,14 +11,24 @@ import { Model } from './components/pages/Model';
 
 type RoutesType = 'page1' | 'page2' | 'page3'
 
+export type SnickersItem = {
+    id: number
+    model: string;
+    collection: string;
+    price: string;
+    picture: string;
+}
+
+export const PATH = {
+    ADIDAS: '/adidas',
+    PUMA: '/puma',
+    ABIBAS: '/abibas',
+    ERROR: '/error'
+} as const
+
+
 function App() {
 
-    const PATH = {
-        ADIDAS: '/adidas',
-        PUMA: '/puma',
-        ABIBAS: '/abibas',
-        ERROR: '/error'
-    } as const
 
     const stylesCallback = (isActive: boolean) => {
         return isActive ? styles.active : styles.pending
@@ -45,10 +55,10 @@ function App() {
                     <Routes>
                         <Route path={'/'} element={<Navigate to={PATH.ADIDAS} />} />
                         <Route path={PATH.ADIDAS} element={<Adidas />} />
-                        <Route path={`${PATH.ADIDAS}/:id`} element={<Model />} />
-
                         <Route path={PATH.PUMA} element={<Puma />} />
                         <Route path={PATH.ABIBAS} element={<Abibas />} />
+
+                        <Route path={`/:firm/:id`} element={<Model />} />
 
                         <Route path={PATH.ERROR} element={<Error404 />} />
                         <Route path={'/*'} element={<Error404 />} />

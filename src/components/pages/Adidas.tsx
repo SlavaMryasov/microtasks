@@ -4,15 +4,10 @@ import adidasModel2 from '../../assets/PostMove_Mid_Cloudfoam_Super_Lifestyle_Ba
 import adidasModel3 from '../../assets/Superstar_XLG_Shoes_Black_IG9777_01_standard.webp'
 import { Model } from './Model';
 import { v1 } from 'uuid';
+import { SnickersItem } from '../../App';
 
-export type AdidasItem = {
-    id: number
-    model: string;
-    collection: string;
-    price: string;
-    picture: string;
-}
-export const adidasArr: AdidasItem[] = [
+
+export const adidasArr: SnickersItem[] = [
     {
         id: 1,
         model: 'ADIDAS ADIFOM TRXN',
