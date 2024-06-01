@@ -1,47 +1,12 @@
-import { NavLink } from 'react-router-dom';
-import adidasModel1 from '../../assets/AdiFOM_TRXN_Shoes_Black_IG7453_01_standard.webp'
-import adidasModel2 from '../../assets/PostMove_Mid_Cloudfoam_Super_Lifestyle_Basketball_Mid_Classic_Shoes_Black_GY7163_01_standard.webp'
-import adidasModel3 from '../../assets/Superstar_XLG_Shoes_Black_IG9777_01_standard.webp'
-import { Model } from './Model';
-import { v1 } from 'uuid';
-import { SnickersItem } from '../../App';
+import { Link } from 'react-router-dom';
+import { SnickerType } from '../../data/ArraysOfSnickers';
 
 
-export const adidasArr: SnickersItem[] = [
-    {
-        id: 1,
-        model: 'ADIDAS ADIFOM TRXN',
-        collection: 'new collection1',
-        price: '100200$',
-        picture: adidasModel1,
-
-    },
-    {
-        id: 2,
-        model: 'ADIDAS ADIFOM SUPER',
-        collection: 'new collection22',
-        price: '200300$',
-        picture: adidasModel2
-    },
-    {
-        id: 3,
-        model: 'ADIDAS SUPER SUPERSKI',
-        collection: 'new collection333',
-        price: '300400$',
-        picture: adidasModel3
-    }
-]
-
-
-export const Adidas = () => {
+export const Adidas = ({ adidasArr }: { adidasArr: SnickerType[] }) => {
     return (
         <div>
             <h2> ADIDAS</h2>
-
-            <div>{adidasArr.map(el =>
-                <NavLink to={`/adidas/${el.id}`} key={el.id}><img src={el.picture} /></NavLink>)}
-            </div>
-
+            {adidasArr.map(el => <Link to={el.title} key={el.title}><img src={el.src} style={{ 'width': '150px', 'margin': '5px' }} /></Link>)}
             <p>
                 What is Lorem Ipsum?
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard

@@ -1,11 +1,9 @@
-import { Link } from 'react-router-dom';
-import { SnickerType } from '../../data/ArraysOfSnickers';
+import React from 'react';
 
-export const Puma = ({ pumaArr }: { pumaArr: SnickerType[] }) => {
+export const Abibas = () => {
     return (
         <div>
-            <h2>PUMA</h2>
-            {pumaArr.map(el => <Link to={el.title} key={el.title}><img src={el.src} style={{ 'width': '150px', 'margin': '5px' }} /></Link>)}
+            <h2> ABIBAS</h2>
             <p>
                 What is Lorem Ipsum?
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
