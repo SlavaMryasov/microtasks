@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src_rrd_do_8_uroka/routes"  ]
 }

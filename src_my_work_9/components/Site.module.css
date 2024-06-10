@@ -36,10 +36,5 @@
 }
 
 .active {
-    background-color: rgb(116, 250, 134);
-  }
-  
-  .pending{
-    /* background-color: rgb(185, 255, 194); */
     background-color: red;
   }
