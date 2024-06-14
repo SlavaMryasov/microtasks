@@ -48,6 +48,9 @@ function App() {
                         <li>
                             <NavLink to={PATH.PRICES}>PRICES</NavLink>
                         </li>
+                        <li>
+                            <NavLink to={PATH.PROTECTED}>PROTECTED</NavLink>
+                        </li>
                     </StylesWrapper>
                 </div>
                 <div className={styles.content}>
