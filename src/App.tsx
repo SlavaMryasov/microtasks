@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from "./components/Site.module.css";
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { Adidas } from './components/pages/Adidas';
 import { Puma } from './components/pages/Puma';
 import { Abibas } from './components/pages/Abibas';
@@ -24,7 +24,11 @@ export type SnickersItem = {
 
 
 function App() {
+    const navigate = useNavigate()
 
+    const backHandler = () => {
+        navigate(-1)
+    }
 
     const stylesCallback = (isActive: boolean) => {
         return isActive ? styles.active : styles.pending
@@ -54,6 +58,10 @@ function App() {
                     </StylesWrapper>
                 </div>
                 <div className={styles.content}>
+                    <div className={styles.horizontalNavigation}>
+                        <NavLink to={PATH.ADIDAS}>на главную</NavLink>
+                        <button className={'dw'} onClick={backHandler}>back</button>
+                    </div>
                     <Outlet />
                     {/* <Routes>
                         <Route path={'/'} element={<Navigate to={PATH.ADIDAS} />} />
